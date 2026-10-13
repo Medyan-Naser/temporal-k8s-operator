@@ -80,7 +80,7 @@ def deploy(juju: jubilant.Juju, charm: pathlib.Path, charm_resources: dict):
     )
     juju.deploy(APP_NAME_ADMIN, channel=TEMPORAL_CHANNEL)
     juju.deploy(APP_NAME_UI, channel=TEMPORAL_CHANNEL)
-    juju.deploy("postgresql-k8s", channel=POSTGRESQL_CHANNEL, trust=True)
+    juju.deploy("postgresql-k8s", channel=POSTGRESQL_CHANNEL, trust=True, force=POSTGRESQL_FORCE)
     juju.deploy("self-signed-certificates", channel=SELF_SIGNED_CERTIFICATES_CHANNEL)
 
     with fast_forward(juju):
