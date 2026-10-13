@@ -86,7 +86,7 @@ def deploy(juju: jubilant.Juju, charm: pathlib.Path, charm_resources: dict):
     with fast_forward(juju):
         wait_active(juju, "postgresql-k8s", "self-signed-certificates", timeout=1200)
 
-        juju.integrate(f"postgresql-k8s:{POSTGRESQL_TLS_RELATION}", "self-signed-certificates:certificates")
+        juju.integrate(f"postgresql-k8s:{POSTGRESQL_TLS_ENDPOINT}", "self-signed-certificates:certificates")
         wait_active(juju, "postgresql-k8s", "self-signed-certificates", timeout=1200)
 
         wait_blocked(juju, APP_NAME, APP_NAME_ADMIN, APP_NAME_UI, timeout=600)
