@@ -151,13 +151,13 @@ class TemporalK8SCharm(CharmBase):
         self.framework.observe(self.on.peer_relation_changed, self._on_peer_relation_changed)
         self.framework.observe(self.on.update_status, self._on_update_status)
 
-        # Handle postgresql relation.
-        self.db = DatabaseRequires(self, relation_name="db", database_name=DB_NAME, extra_user_roles="admin")
+        # Handle postgresql relation. extra_user_roles omitted: database-owner privileges
+        # are sufficient for Temporal and "admin" is rejected by postgresql-k8s 16/stable.
+        self.db = DatabaseRequires(self, relation_name="db", database_name=DB_NAME)
         self.visibility = DatabaseRequires(
             self,
             relation_name="visibility",
             database_name=VISIBILITY_DB_NAME,
-            extra_user_roles="admin",
         )
         self.postgresql = Postgresql(self)
 

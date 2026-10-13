@@ -18,6 +18,7 @@ import yaml
 from temporal_client.activities import say_hello
 from temporal_client.workflows import SayHello
 from temporalio.client import Client, WorkflowFailureError
+from temporalio.service import RPCError as TemporalServiceRPCError
 from temporalio.worker import Worker
 
 try:
@@ -176,9 +177,11 @@ async def _run_sample_workflow(url: str, count=1):
 
     client = await Client.connect(url)
 
-    workflow_error_types: tuple = (WorkflowFailureError,)
+    # TemporalServiceRPCError is the Python-level wrapper; temporal_sdk_bridge.RPCError
+    # is the Rust bridge exception.  Both must be retried on transient timeouts.
+    workflow_error_types: tuple = (WorkflowFailureError, TemporalServiceRPCError)
     if temporal_sdk_bridge is not None:
-        workflow_error_types = (WorkflowFailureError, temporal_sdk_bridge.RPCError)
+        workflow_error_types = (WorkflowFailureError, TemporalServiceRPCError, temporal_sdk_bridge.RPCError)
 
     def _retryable_workflow_error(exc: BaseException) -> bool:
         """Return True if the exception is retryable transient workflow/client errors."""
