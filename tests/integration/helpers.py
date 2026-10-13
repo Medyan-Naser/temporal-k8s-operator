@@ -179,9 +179,11 @@ async def _run_sample_workflow(url: str, count=1):
 
     # TemporalServiceRPCError is the Python-level wrapper; temporal_sdk_bridge.RPCError
     # is the Rust bridge exception.  Both must be retried on transient timeouts.
-    workflow_error_types: tuple = (WorkflowFailureError, TemporalServiceRPCError)
+    # workflow_error_types: tuple = (WorkflowFailureError, TemporalServiceRPCError)
     if temporal_sdk_bridge is not None:
-        workflow_error_types = (WorkflowFailureError, TemporalServiceRPCError, temporal_sdk_bridge.RPCError)
+        workflow_error_types = (WorkflowFailureError, temporal_sdk_bridge.RPCError)
+        # workflow_error_types = (WorkflowFailureError, TemporalServiceRPCError, temporal_sdk_bridge.RPCError)
+
 
     def _retryable_workflow_error(exc: BaseException) -> bool:
         """Return True if the exception is retryable transient workflow/client errors."""

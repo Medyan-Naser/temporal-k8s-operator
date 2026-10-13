@@ -37,11 +37,11 @@ def deploy(juju: jubilant.Juju, charm: pathlib.Path, charm_resources: dict):
         APP_NAME,
         resources=charm_resources,
         config={
-            "num-history-shards": 1,
-            "persistence-max-conns": 3,
-            "persistence-max-idle-conns": 3,
-            "visibility-max-conns": 5,
-            "visibility-max-idle-conns": 5,
+            "num-history-shards": 1
+            # "persistence-max-conns": 3,
+            # "persistence-max-idle-conns": 3,
+            # "visibility-max-conns": 5,
+            # "visibility-max-idle-conns": 5,
         },
         num_units=3,
     )
