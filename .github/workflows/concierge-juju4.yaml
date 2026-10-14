@@ -4,13 +4,13 @@
 # Juju 4.x variant of concierge.yaml.
 #
 # Provisions the substrate for the cross-model ingress integration test
-# (tests/integration/test_ingress.py) using Juju 4/stable.
+# (tests/integration/test_ingress.py) using Juju 4/edge.
 #
 # The other integration tests only need Kubernetes and are provisioned
 # separately with `concierge prepare -p k8s` (see nightly-juju4.yaml);
 # they do not read this file.
 juju:
-  channel: 4/stable
+  channel: 4/edge
   model-defaults:
     test-mode: "true"
     automatically-retry-hooks: "false"
