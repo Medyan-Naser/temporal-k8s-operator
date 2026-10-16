@@ -10,7 +10,7 @@
 # separately with `concierge prepare -p k8s` (see nightly-juju4.yaml);
 # they do not read this file.
 juju:
-  channel: 4.0/edge
+  channel: 4.1/edge
   model-defaults:
     test-mode: "true"
     automatically-retry-hooks: "false"
